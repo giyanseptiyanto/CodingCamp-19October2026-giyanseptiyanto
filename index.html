@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Life Dashboard</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+
+    <!-- Header: Greeting Widget -->
+    <header class="greeting-widget">
+      <!-- Theme toggle — top-right corner of the header -->
+      <button id="theme-toggle" class="theme-toggle-btn" aria-label="Switch to Dark Mode">🌙 Dark Mode</button>
+
+      <div class="greeting-text">
+        <p id="greeting">Good Morning</p>
+        <button id="edit-name-btn" class="edit-name-btn" aria-label="Edit your name">✏️</button>
+      </div>
+      <p id="current-time" class="current-time">00:00:00</p>
+      <p id="current-date" class="current-date">Monday, January 1, 2000</p>
+    </header>
+
+    <main id="app">
+
+      <!-- To-Do List Widget -->
+      <section class="todo-widget">
+        <h2 class="widget-title">To-Do List</h2>
+
+        <!-- Add task row -->
+        <div class="todo-input-row">
+          <input
+            type="text"
+            id="todo-input"
+            class="todo-input"
+            placeholder="Add a new task…"
+            aria-label="New task"
+            maxlength="200"
+          />
+          <button id="todo-add-btn" class="todo-add-btn">Add</button>
+        </div>
+
+        <!-- Inline feedback message -->
+        <p id="todo-feedback" class="todo-feedback" aria-live="polite"></p>
+
+        <!-- Task list -->
+        <ul id="todo-list" class="todo-list" aria-label="Task list"></ul>
+      </section>
+
+      <!-- Focus Timer Widget -->
+      <section class="timer-widget">
+        <h2 class="widget-title">Focus Timer</h2>
+        <p id="timer-display" class="timer-display">25:00</p>
+        <p id="timer-status" class="timer-status" aria-live="polite"></p>
+        <div class="timer-controls">
+          <button id="timer-start" class="timer-btn timer-btn--start">Start</button>
+          <button id="timer-stop"  class="timer-btn timer-btn--neutral">Stop</button>
+          <button id="timer-reset" class="timer-btn timer-btn--neutral">Reset</button>
+        </div>
+      </section>
+
+      <!-- Quick Links Widget -->
+      <section class="links-widget">
+        <h2 class="widget-title">Quick Links</h2>
+
+        <!-- Add link form -->
+        <div class="links-form">
+          <input
+            type="text"
+            id="link-name-input"
+            class="links-input"
+            placeholder="Site name (e.g. GitHub)"
+            aria-label="Website name"
+            maxlength="100"
+          />
+          <input
+            type="url"
+            id="link-url-input"
+            class="links-input"
+            placeholder="URL (https://…)"
+            aria-label="Website URL"
+            maxlength="500"
+          />
+          <button id="link-add-btn" class="links-add-btn">Add Link</button>
+        </div>
+
+        <!-- Inline feedback message -->
+        <p id="links-feedback" class="links-feedback" aria-live="polite"></p>
+
+        <!-- Saved links list -->
+        <ul id="links-list" class="links-list" aria-label="Quick links"></ul>
+      </section>
+
+    </main>
+
+    <script src="js/app.js"></script>
+  </body>
+</html>
