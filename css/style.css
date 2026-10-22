@@ -1,39 +1,41 @@
-/* =============================================================
-   Life Dashboard — Main Stylesheet
-   style.css (only CSS file in this project)
-   ============================================================= */
+/* ===============================
+   To-Do List Life Dashboard - CSS
+   =============================== */
 
-/* ----- CSS Variables: Light Mode (default) ------------------ */
+/* Variabel warna untuk Light dan Dark Mode */
 :root {
-  --bg-page:          #e8edf5;
-  --bg-widget:        #f0f4ff;
-  --bg-widget-hover:  #e4eaf8;
-  --text-primary:     #1a1a2e;
-  --text-secondary:   #555555;
-  --btn-bg:           #ffffff;
-  --btn-border:       #c0c8d8;
-  --btn-text:         #1a1a2e;
-  --btn-hover-bg:     rgba(0, 0, 0, 0.06);
-  --accent:           #4361ee;       /* Start button / accent color  */
-  --accent-hover:     #3451d1;
-  --transition-theme: background-color 0.3s ease, color 0.3s ease,
-                      border-color 0.3s ease;
+  color-scheme: light;
+  --bg-page: #e8edf5;
+  --bg-widget: #f0f4ff;
+  --bg-widget-hover: #e4eaf8;
+  --text-primary: #1a1a2e;
+  --text-secondary: #555555;
+  --text-on-accent: #ffffff;
+  --text-error: #c0392b;
+  --btn-bg: #ffffff;
+  --btn-border: #c0c8d8;
+  --btn-text: #1a1a2e;
+  --btn-hover-bg: rgba(0, 0, 0, 0.06);
+  --accent: #4361ee;
+  --accent-hover: #3451d1;
+  --theme-transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
-/* ----- CSS Variables: Dark Mode ----------------------------- */
-[data-theme="dark"] {
-  --bg-page:         #0f1117;
-  --bg-widget:       #1a1d27;
+body[data-theme="dark"] {
+  color-scheme: dark;
+  --bg-page: #0f1117;
+  --bg-widget: #1a1d27;
   --bg-widget-hover: #22263a;
-  --text-primary:    #e8edf5;
-  --text-secondary:  #a0a8bb;
-  --btn-bg:          #22263a;
-  --btn-border:      #3a4060;
-  --btn-text:        #e8edf5;
-  --btn-hover-bg:    rgba(255, 255, 255, 0.08);
+  --text-primary: #e8edf5;
+  --text-secondary: #a0a8bb;
+  --text-error: #e57373;
+  --btn-bg: #22263a;
+  --btn-border: #3a4060;
+  --btn-text: #e8edf5;
+  --btn-hover-bg: rgba(255, 255, 255, 0.08);
 }
 
-/* ----- Reset & Base ----------------------------------------- */
+/* Reset and base layout */
 *,
 *::before,
 *::after {
@@ -43,52 +45,53 @@
 }
 
 body {
-  font-family: sans-serif;
   min-height: 100vh;
   background-color: var(--bg-page);
   color: var(--text-primary);
-  transition: var(--transition-theme);
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+  transition: var(--theme-transition);
 }
 
-/* ----- Main Container --------------------------------------- */
+button,
+input {
+  font: inherit;
+}
+
+button,
+a,
+input {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
 #app {
-  max-width: 960px;
+  width: min(100%, 960px);
   margin: 0 auto;
   padding: 2rem 1rem;
 }
 
-/* ----- Greeting Widget -------------------------------------- */
+/* Greeting header */
 .greeting-widget {
-  position: relative;          /* anchors the theme toggle button */
-  text-align: center;
-  padding: 2.5rem 1rem 2rem;
-  background-color: var(--bg-widget);
-  border-radius: 1rem;
+  position: relative;
   margin-bottom: 2rem;
-  transition: var(--transition-theme);
+  padding: 2.5rem 1rem 2rem;
+  border-radius: 1rem;
+  background-color: var(--bg-widget);
+  text-align: center;
+  transition: var(--theme-transition);
 }
 
-/* ----- Theme Toggle Button ---------------------------------- */
-.theme-toggle-btn {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  background-color: var(--btn-bg);
-  color: var(--btn-text);
-  border: 1px solid var(--btn-border);
-  border-radius: 2rem;
-  padding: 0.35rem 0.85rem;
-  font-size: 0.85rem;
-  cursor: pointer;
-  transition: var(--transition-theme);
-  white-space: nowrap;
-}
-
-.theme-toggle-btn:hover {
-  background-color: var(--bg-widget-hover);
-}
-
-/* ----- Greeting Text Row ------------------------------------ */
 .greeting-text {
   display: inline-flex;
   align-items: center;
@@ -97,365 +100,226 @@ body {
 }
 
 #greeting {
+  color: var(--text-primary);
   font-size: 1.6rem;
   font-weight: 600;
-  color: var(--text-primary);
-  transition: var(--transition-theme);
+  transition: var(--theme-transition);
 }
 
-.edit-name-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 1rem;
-  padding: 0.2rem 0.4rem;
-  border-radius: 0.3rem;
-  line-height: 1;
-  transition: background 0.2s;
-}
-
-.edit-name-btn:hover {
-  background: var(--btn-hover-bg);
-}
-
-/* ----- Time & Date ------------------------------------------ */
 .current-time {
+  color: var(--text-primary);
   font-size: 3.5rem;
   font-weight: 700;
   letter-spacing: 0.05em;
-  color: var(--text-primary);
   line-height: 1.1;
-  transition: var(--transition-theme);
+  transition: var(--theme-transition);
 }
 
 .current-date {
-  font-size: 1rem;
-  color: var(--text-secondary);
   margin-top: 0.4rem;
-  transition: var(--transition-theme);
+  color: var(--text-secondary);
+  font-size: 1rem;
+  transition: var(--theme-transition);
 }
 
-/* ----- Responsive ------------------------------------------- */
-@media (max-width: 480px) {
-  .current-time {
-    font-size: 2.6rem;
-  }
-
-  #greeting {
-    font-size: 1.3rem;
-  }
-
-  .theme-toggle-btn {
-    font-size: 0.75rem;
-    padding: 0.3rem 0.65rem;
-  }
-
-  .timer-display {
-    font-size: 3rem;
-  }
+/* Theme toggle and name-edit buttons */
+.theme-toggle-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  padding: 0.35rem 0.85rem;
+  border: 1px solid var(--btn-border);
+  border-radius: 2rem;
+  background-color: var(--btn-bg);
+  color: var(--btn-text);
+  cursor: pointer;
+  font-size: 0.85rem;
+  white-space: nowrap;
+  transition: var(--theme-transition);
 }
 
-/* ----- Shared Widget Card ----------------------------------- */
-/* Reusable card style available to future widgets.             */
+.theme-toggle-btn:hover {
+  background-color: var(--bg-widget-hover);
+}
+
+.edit-name-btn {
+  padding: 0.2rem 0.4rem;
+  border: 0;
+  border-radius: 0.3rem;
+  background: none;
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: 1;
+  transition: background-color 0.2s ease;
+}
+
+.edit-name-btn:hover,
+.todo-item_btn:hover,
+.links-item_delete:hover {
+  background-color: var(--btn-hover-bg);
+}
+
+/* Shared widget card styles */
 .widget-card {
-  background-color: var(--bg-widget);
-  border-radius: 1rem;
-  padding: 1.75rem 1.5rem;
   margin-bottom: 1.5rem;
-  transition: var(--transition-theme);
+  padding: 1.75rem 1.5rem;
+  border-radius: 1rem;
+  background-color: var(--bg-widget);
+  transition: var(--theme-transition);
 }
 
 .widget-title {
+  margin-bottom: 1.25rem;
+  color: var(--text-secondary);
   font-size: 1rem;
   font-weight: 600;
-  text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--text-secondary);
-  margin-bottom: 1.25rem;
+  text-transform: uppercase;
 }
 
-/* ----- Focus Timer Widget ----------------------------------- */
+/* Focus Timer */
 .timer-widget {
-  background-color: var(--bg-widget);
-  border-radius: 1rem;
-  padding: 1.75rem 1.5rem;
-  margin-bottom: 1.5rem;
   text-align: center;
-  transition: var(--transition-theme);
 }
 
 .timer-display {
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
   font-size: 4rem;
   font-weight: 700;
   letter-spacing: 0.06em;
-  color: var(--text-primary);
   line-height: 1;
-  margin-bottom: 0.5rem;
-  transition: var(--transition-theme);
+  transition: var(--theme-transition);
 }
 
 .timer-status {
-  font-size: 0.95rem;
-  color: var(--text-secondary);
-  min-height: 1.4em;    /* reserves space so the layout does not jump */
+  min-height: 1.4em;
   margin-bottom: 1.25rem;
-  transition: var(--transition-theme);
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  transition: var(--theme-transition);
 }
 
 .timer-controls {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   gap: 0.75rem;
-  flex-wrap: wrap;
 }
 
-/* Base timer button */
 .timer-btn {
   padding: 0.5rem 1.4rem;
+  border: 1px solid var(--btn-border);
+  border-radius: 0.5rem;
+  cursor: pointer;
   font-size: 0.95rem;
   font-weight: 500;
-  border-radius: 0.5rem;
-  border: 1px solid var(--btn-border);
-  cursor: pointer;
-  transition: var(--transition-theme), opacity 0.2s;
+  transition:
+    var(--theme-transition),
+    opacity 0.2s ease;
 }
 
-/* Start button — uses accent color */
-.timer-btn--start {
-  background-color: var(--accent);
-  color: #ffffff;
+.timer-btn-start {
   border-color: var(--accent);
+  background-color: var(--accent);
+  color: var(--text-on-accent);
 }
 
-.timer-btn--start:hover {
-  background-color: var(--accent-hover);
+.timer-btn-start:hover {
   border-color: var(--accent-hover);
+  background-color: var(--accent-hover);
 }
 
-/* Stop / Reset buttons — neutral style */
-.timer-btn--neutral {
+.timer-btn-neutral {
   background-color: var(--btn-bg);
   color: var(--btn-text);
 }
 
-.timer-btn--neutral:hover {
+.timer-btn-neutral:hover {
   background-color: var(--bg-widget-hover);
 }
 
-/* Disabled state */
-.timer-btn:disabled {
-  opacity: 0.4;
+button:disabled {
   cursor: not-allowed;
+  opacity: 0.4;
 }
 
-/* Widget styles for future steps will be added below */
-
-/* ----- Quick Links Widget ----------------------------------- */
-.links-widget {
-  background-color: var(--bg-widget);
-  border-radius: 1rem;
-  padding: 1.75rem 1.5rem;
-  margin-bottom: 1.5rem;
-  transition: var(--transition-theme);
-}
-
-/* Form: name input + URL input + button in a row            */
-/* Wraps to two rows on narrow screens via flex-wrap.        */
-.links-form {
-  display: flex;
-  gap: 0.6rem;
-  flex-wrap: wrap;
-  margin-bottom: 0.6rem;
-}
-
-.links-input {
-  flex: 1 1 160px;           /* grow, allow shrink, min ~160 px  */
-  padding: 0.55rem 0.85rem;
-  font-size: 0.95rem;
-  border: 1px solid var(--btn-border);
-  border-radius: 0.5rem;
-  background-color: var(--btn-bg);
-  color: var(--text-primary);
-  outline: none;
-  transition: var(--transition-theme), border-color 0.2s;
-}
-
-.links-input:focus {
-  border-color: var(--accent);
-}
-
-.links-add-btn {
-  padding: 0.55rem 1.2rem;
-  font-size: 0.95rem;
-  font-weight: 500;
-  background-color: var(--accent);
-  color: #ffffff;
-  border: 1px solid var(--accent);
-  border-radius: 0.5rem;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: var(--transition-theme);
-}
-
-.links-add-btn:hover {
-  background-color: var(--accent-hover);
-  border-color: var(--accent-hover);
-}
-
-/* Feedback message */
-.links-feedback {
-  font-size: 0.88rem;
-  min-height: 1.3em;
-  margin-bottom: 0.75rem;
-  color: var(--text-secondary);
-  transition: var(--transition-theme);
-}
-
-.links-feedback--error {
-  color: #c0392b;
-}
-
-[data-theme="dark"] .links-feedback--error {
-  color: #e57373;
-}
-
-/* Link list: no bullets */
-.links-list {
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;           /* links flow into a grid-like layout  */
-  gap: 0.6rem;
-}
-
-/* Individual link row: anchor + delete button */
-.links-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3rem;
-  padding: 0.45rem 0.75rem;
-  border: 1px solid var(--btn-border);
-  border-radius: 2rem;       /* pill shape                          */
-  background-color: var(--btn-bg);
-  transition: var(--transition-theme);
-}
-
-.links-item:hover {
-  background-color: var(--bg-widget-hover);
-}
-
-/* The clickable anchor */
-.links-item__anchor {
-  font-size: 0.9rem;
-  color: var(--accent);
-  text-decoration: none;
-  font-weight: 500;
-}
-
-.links-item__anchor:hover {
-  text-decoration: underline;
-}
-
-/* Delete button inside each pill */
-.links-item__delete {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 0.8rem;
-  color: var(--text-secondary);
-  padding: 0 0.15rem;
-  line-height: 1;
-  border-radius: 50%;
-  transition: color 0.2s, background 0.2s;
-}
-
-.links-item__delete:hover {
-  color: var(--text-primary);
-  background: var(--btn-hover-bg);
-}
-
-/* Empty-state message */
-.links-empty {
-  font-size: 0.9rem;
-  color: var(--text-secondary);
-  padding: 0.5rem 0;
-}
-
-/* ----- To-Do List Widget ------------------------------------ */
-.todo-widget {
-  background-color: var(--bg-widget);
-  border-radius: 1rem;
-  padding: 1.75rem 1.5rem;
-  margin-bottom: 1.5rem;
-  transition: var(--transition-theme);
-}
-
-/* Input row: text field + Add button side by side */
+/* To-Do List */
 .todo-input-row {
   display: flex;
   gap: 0.6rem;
   margin-bottom: 0.6rem;
 }
 
-.todo-input {
-  flex: 1;
+.todo-input,
+.links-input {
+  min-width: 0;
   padding: 0.55rem 0.85rem;
-  font-size: 0.95rem;
   border: 1px solid var(--btn-border);
   border-radius: 0.5rem;
   background-color: var(--btn-bg);
   color: var(--text-primary);
-  outline: none;
-  transition: var(--transition-theme), border-color 0.2s;
+  font-size: 0.95rem;
+  transition:
+    var(--theme-transition),
+    border-color 0.2s ease;
 }
 
-.todo-input:focus {
+.todo-input {
+  flex: 1;
+}
+
+.todo-input:focus,
+.links-input:focus {
   border-color: var(--accent);
 }
 
-.todo-add-btn {
+.todo-add-btn,
+.links-add-btn {
   padding: 0.55rem 1.2rem;
-  font-size: 0.95rem;
-  font-weight: 500;
-  background-color: var(--accent);
-  color: #ffffff;
   border: 1px solid var(--accent);
   border-radius: 0.5rem;
+  background-color: var(--accent);
+  color: var(--text-on-accent);
   cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 500;
   white-space: nowrap;
-  transition: var(--transition-theme);
+  transition: var(--theme-transition);
 }
 
-.todo-add-btn:hover {
-  background-color: var(--accent-hover);
+.todo-add-btn:hover,
+.links-add-btn:hover {
   border-color: var(--accent-hover);
+  background-color: var(--accent-hover);
 }
 
-/* Feedback message (error / info) */
-.todo-feedback {
-  font-size: 0.88rem;
+.todo-feedback,
+.links-feedback {
   min-height: 1.3em;
   margin-bottom: 0.75rem;
   color: var(--text-secondary);
-  transition: var(--transition-theme);
+  font-size: 0.88rem;
+  transition: var(--theme-transition);
 }
 
-.todo-feedback--error {
-  color: #c0392b;
+.todo-feedback-error,
+.links-feedback-error {
+  color: var(--text-error);
 }
 
-[data-theme="dark"] .todo-feedback--error {
-  color: #e57373;
-}
-
-/* Task list: no bullets, full width */
-.todo-list {
-  list-style: none;
+.todo-list,
+.links-list {
   display: flex;
+  gap: 0.6rem;
+  list-style: none;
+}
+
+.todo-list {
   flex-direction: column;
   gap: 0.5rem;
 }
 
-/* Individual task row */
 .todo-item {
   display: flex;
   align-items: center;
@@ -464,68 +328,182 @@ body {
   border: 1px solid var(--btn-border);
   border-radius: 0.5rem;
   background-color: var(--btn-bg);
-  transition: var(--transition-theme);
+  transition: var(--theme-transition);
 }
 
-/* Checkbox */
-.todo-item__checkbox {
+.todo-item_checkbox {
   width: 1.1rem;
   height: 1.1rem;
   flex-shrink: 0;
-  cursor: pointer;
   accent-color: var(--accent);
+  cursor: pointer;
 }
 
-/* Task text — takes all remaining space */
-.todo-item__text {
+.todo-item_text {
   flex: 1;
-  font-size: 0.95rem;
   color: var(--text-primary);
-  word-break: break-word;
-  transition: var(--transition-theme);
-}
-
-/* Strikethrough + muted color for completed tasks */
-.todo-item--completed .todo-item__text {
-  text-decoration: line-through;
-  color: var(--text-secondary);
-}
-
-/* Inline edit input — replaces the text span while editing */
-.todo-item__edit-input {
-  flex: 1;
-  padding: 0.25rem 0.5rem;
   font-size: 0.95rem;
+  overflow-wrap: anywhere;
+  transition: var(--theme-transition);
+}
+
+.todo-item-completed .todo-item_text {
+  color: var(--text-secondary);
+  text-decoration: line-through;
+}
+
+.todo-item_edit-input {
+  flex: 1;
+  min-width: 0;
+  padding: 0.25rem 0.5rem;
   border: 1px solid var(--accent);
   border-radius: 0.35rem;
   background-color: var(--btn-bg);
   color: var(--text-primary);
-  outline: none;
-  transition: var(--transition-theme);
+  font-size: 0.95rem;
+  transition: var(--theme-transition);
 }
 
-/* Icon buttons (Edit / Save / Delete) */
-.todo-item__btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 1rem;
-  padding: 0.2rem 0.35rem;
-  border-radius: 0.3rem;
-  line-height: 1;
-  transition: background 0.2s;
+.todo-item_btn,
+.links-item_delete {
   flex-shrink: 0;
+  padding: 0.2rem 0.35rem;
+  border: 0;
+  border-radius: 0.3rem;
+  background: none;
+  cursor: pointer;
+  line-height: 1;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
 }
 
-.todo-item__btn:hover {
-  background: var(--btn-hover-bg);
+.todo-item_btn {
+  font-size: 1rem;
 }
 
-/* Empty-state message */
-.todo-empty {
-  font-size: 0.9rem;
+.todo-empty,
+.links-empty {
+  padding: 0.75rem 0;
   color: var(--text-secondary);
-  text-align: center;
-  padding: 1rem 0;
+  font-size: 0.9rem;
 }
 
+.todo-empty {
+  text-align: center;
+}
+
+/* Quick Links */
+.links-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: 0.6rem;
+}
+
+.links-input {
+  flex: 1 1 160px;
+}
+
+.links-list {
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.links-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  max-width: 100%;
+  padding: 0.45rem 0.75rem;
+  border: 1px solid var(--btn-border);
+  border-radius: 2rem;
+  background-color: var(--btn-bg);
+  transition: var(--theme-transition);
+}
+
+.links-item:hover {
+  background-color: var(--bg-widget-hover);
+}
+
+.links-item_anchor {
+  overflow-wrap: anywhere;
+  color: var(--accent);
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.links-item_anchor:hover {
+  text-decoration: underline;
+}
+
+.links-item_delete {
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+}
+
+.links-item_delete:hover {
+  color: var(--text-primary);
+}
+
+/* Responsive layout */
+@media (max-width: 480px) {
+  #app {
+    padding: 1.25rem 0.75rem;
+  }
+
+  .greeting-widget {
+    padding: 3.5rem 0.75rem 1.75rem;
+  }
+
+  #greeting {
+    font-size: 1.3rem;
+  }
+
+  .current-time {
+    font-size: 2.6rem;
+  }
+
+  .theme-toggle-btn {
+    font-size: 0.75rem;
+    padding: 0.3rem 0.65rem;
+  }
+
+  .widget-card {
+    padding: 1.35rem 1rem;
+  }
+
+  .timer-display {
+    font-size: 3rem;
+  }
+
+  .todo-input-row,
+  .links-form {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .todo-input,
+  .todo-add-btn,
+  .links-input,
+  .links-add-btn {
+    width: 100%;
+  }
+
+  .todo-item {
+    gap: 0.45rem;
+    padding: 0.55rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
